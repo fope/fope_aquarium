@@ -1,0 +1,46 @@
+// Search and replace
+//
+// @example scss - Usage
+//   .element {
+//     font-family: str-replace('Droid Sans', ' ', '-');
+//   }
+//
+// @example scss - Output
+//   .element {
+//     font-family: 'Droid-Sans';
+//   }
+//
+// @access public
+// @param {String}  $string   String to search from
+// @param {String}  $search   Search query
+// @param {String}  $replace  Replacement
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+// Generates a stroke with configurable shadow
+//
+// @access public
+// @param {String}  $stroke-width   Width of the stroke
+// @param {String}  $stroke-color   Color of the stroke
+// @param {String}  $shadow-width   Width of the shadow
+// @param {String}  $shadow-color   Color of the shadow
+@function stroke-with-shadow($stroke-width, $stroke-color, $shadow-width, $shadow-color) {
+  $result: '';
+  @for $i from $stroke-width * -1 through $stroke-width {
+    @for $j from $stroke-width * -1 through $stroke-width {
+      $result: '#{$result}, #{$i * 1px} #{$j * 1px} 0 #{$stroke-color}';
+    }
+  }
+
+  @for $i from $shadow-width * -1 through $shadow-width {
+    $result: '#{$result}, #{$i * 1px} #{($stroke-width + $shadow-width) * 1px}  0 #{$shadow-color}';
+  }
+  @return str-slice(unquote($result), 2);
+}

@@ -1,0 +1,63 @@
+@import '../../styles/index';
+
+//constants
+
+.catalog-container {
+  margin: 0;
+  padding: 10px;
+  width: 320px;
+
+  ul {
+    display: flex;
+    flex: 0 0 auto;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  span {
+    margin: 0 5px;
+    padding: 0 5px;
+  }
+
+  .catalog-title,
+  .catalog-item,
+  .child-item,
+  .brand-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 2px 0;
+    padding: 0;
+  }
+
+  .catalog-title {
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .catalog-item {
+    background-color: #AAAAAA;
+  }
+
+  .child-item {
+    background-color: #CCCCCC;
+    padding-left: 10px;
+  }
+
+  .brand-item {
+    background-color: #EEEEEE;
+    padding-left: 20px;
+  }
+
+  .catalog-editing {
+    margin: 2px 0;
+    padding: 0;
+  }
+}

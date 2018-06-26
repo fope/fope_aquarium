@@ -1,0 +1,46 @@
+/** Z-index variables **/
+$layer--negative: -1 !default;
+$layer-0: 0 !default;
+$layer-1: 1 !default;
+$layer-2: 2 !default;
+$layer-3: 3 !default;
+$layer-4: 4 !default;
+$layer-5: 5 !default;
+$layer-10: 10 !default;
+$layer-999: 999 !default;
+$layer-1000: 1000 !default;
+$layer-1004: 1004 !default;
+$layer-1005: 1005 !default;
+$layer-1006: 1006 !default;
+$layer-1007: 1007 !default;
+$layer-1010: 1010 !default;
+
+/** Margins & Layout */
+
+$max-width: 1128px !default;
+
+$right-col-md: 300px !default;
+$right-col-lg: 360px !default;
+
+/** Border radius */
+$border-radius: 8px !default;
+$border-radius-small: 5px !default;
+
+/** Borders **/
+$border-separator--active : 2px dashed $active !default;
+$border-separator--darker: 2px dashed $secondary-darker !default;
+$border-separator--solid: 2px solid $secondary !default;
+$border-separator: 2px dashed $secondary !default;
+$border-separator--header: 2px dashed $primary-dark !default;
+
+/** styles twoColumns pages */
+/** Margins & Layout */
+$two-columns-max-weight-main-wr: 1128px;
+$two-columns-padding-right-col: 34.043%;   /* weight 744px */
+$two-columns-right-col-width: 65%;
+$two-columns-max-weight-left-col: 31.916%; /* weight 360px */
+$two-columns-weight-between-col: 24px;
+$two-columns-weight-between-col-s: 3.1%;
+
+/** Animation */
+$easeInOutSine: cubic-bezier(0.445, 0.05, 0.55, 0.95) !default;

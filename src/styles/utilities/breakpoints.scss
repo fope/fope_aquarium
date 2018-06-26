@@ -1,0 +1,172 @@
+/** Reponsive Breakpoint variables */
+$tiny-max: 319px !default;
+$small-max: 767px !default;
+$medium-max: 999px !default;
+$large-max: 1199px !default;
+$xlarge-max: 9999px !default;
+
+/** for navigation */
+$nav-menu-large: 1370px !default;
+$nav-menu-medium: 1150px !default;
+$nav-menu-small: 860px !default;
+
+/** for special offer */
+$special-offer-max: 900px;
+
+/** For backwards-compatibility */
+$tiny: #{$tiny-max + 1}px;
+$small: #{$small-max + 1}px;
+$medium: #{$medium-max + 1}px;
+$large: #{$large-max + 1}px;
+$xlarge: #{$xlarge-max + 1}px;
+
+
+/** Lower than */
+$lt-tiny: (max: #{$tiny-max});
+$lt-small: (max: #{$small-max});
+$lt-medium: (max: #{$medium-max});
+$lt-large: (max: #{$large-max});
+$lt-xlarge: (max: #{$xlarge-max});
+
+/** for navigation */
+$lt-medium-breakpoint: (max: #{$nav-menu-medium - 1});
+$lt-small-breakpoint: (max: #{$nav-menu-small - 1});
+
+
+/** Greater than */
+$gt-tiny: (min: #{$tiny-max + 1});
+$gt-small: (min: #{$small-max + 1});
+$gt-medium: (min: #{$medium-max + 1});
+$gt-large: (min: #{$large-max + 1});
+$gt-xlarge: (min: #{$xlarge-max + 1});
+
+/** for navigation */
+$gt-large-breakpoint: (min: #{$nav-menu-large - 1});
+$gt-medium-breakpoint: (min: #{$nav-menu-medium - 1});
+$gt-small-breakpoint: (min: #{$nav-menu-small - 1});
+
+/** Fixed size */
+$tiny-only: (min: 0, max: #{$tiny-max});
+$small-only: (min: #{$tiny-max + 1}, max: #{$small-max});
+$medium-only: (min: #{$small-max + 1}, max: #{$medium-max});
+$large-only: (min: #{$medium-max + 1}, max: #{$large-max});
+$xlarge-only: (min: #{$large-max + 1}, max: #{$xlarge-max});
+
+/// Breakpoint mixin
+/// Generate media-queries depending on input
+///
+/// @example scss - Usage with variable
+///   @include breakpoint($gt-small) {
+///     width: 100px;
+///   }
+///
+///   @include breakpoint($lt-small) {
+///     width: 50px;
+///   }
+///
+///   @include breakpoint($small-only) {
+///     width: 20px;
+///   }
+///
+/// @example css - Output with variable
+///   @media screen and (min-width: 768px) {
+///     width: 100px;
+///   }
+///
+///   @media screen and (max-width: 768px) {
+///     width: 100px;
+///   }
+///
+///   @media screen and (min-width: 320px, max: 768px) {
+///     width: 100px;
+///   }
+///
+/// @example scss - Usage with pixel ratio
+///   @include breakpoint($small, 2) {
+///     width: 100px;
+///   }
+///
+/// @example css - Output with pixel ratio
+///   @media screen and (min-width: 768px) and (min-device-pixel-ratio: 2) {
+///     width: 100px;
+///   }
+///
+/// @example scss - Usage with map
+///   @include breakpoint((min: 320px, max: 750px)) {
+///     width: 100px;
+///   }
+///
+/// @example css - Output with map
+///   @media screen and (min-width: 320px and max-width: 750px) {
+///     width: 100px;
+///   }
+///
+/// @access public
+/// @param {Mixed}  $map          A string or a map containing optional key min, max
+/// @param {Number} $pixel-ratio  Optional pixel ratio
+@mixin breakpoint($map, $pixel-ratio: null) {
+  $query: null;
+
+  // Retina support
+  @if $pixel-ratio {
+    @if type-of($pixel-ratio) == 'number' {
+      $query: "(min-resolution: #{$pixel-ratio}dppx) and";
+    } @else {
+      @error "Invalid value type for pixel-ratio. #{$pixel-ratio} is not supported";
+    }
+  }
+
+  @if map-has-key($map, min) {
+    $query: "#{$query} (min-width: #{map-get($map, min)})";
+  }
+  @if map-has-key($map, min) and map-has-key($map, max) {
+    $query: "#{$query} and";
+  }
+  @if map-has-key($map, max) {
+    $query: "#{$query} (max-width: #{map-get($map, max)})";
+  }
+
+  @if $query {
+    @media screen and #{$query} {
+      @content;
+    }
+  } @else {
+    @error "Invalid value type for map. #{map} is not supported";
+  }
+}
+
+
+/// High resolution mixin
+/// Generate media-queries for high resolution screen (retina)
+///
+/// @example scss - Default usage
+///   @include highres() {
+///     width: 100px;
+///   }
+///
+/// @example css - Output default usage
+///   @media screen and (min-device-pixel-ratio: 2) {
+///     width: 100px;
+///   }
+///
+/// @example scss - Usage with given pixel ratio
+///   @include highres(4) {
+///     width: 100px;
+///   }
+///
+/// @example css - Output with given pixel ratio
+///   @media screen and (min-device-pixel-ratio: 4) {
+///     width: 100px;
+///   }
+///
+/// @access public
+/// @param {Number}  $pixel-ratio  Optional pixel ratio, default: 2
+@mixin highres($pixel-ratio: 2) {
+  @if type-of($pixel-ratio) == 'number' {
+    @media screen and (min-resolution: #{$pixel-ratio}dppx) {
+      @content;
+    }
+  } @else {
+    @error "Invalid value type for pixel-ratio. #{$pixel-ratio} is not supported";
+  }
+}

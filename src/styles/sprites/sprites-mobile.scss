@@ -1,0 +1,27 @@
+.sprite-mobile {
+  background-image: url('public/assets/images/sprites/sprite-mobiles.png');
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .sprite-mobile {
+    background-image: url('public/assets/images/sprites/sprite-mobiles@2x.png');
+    background-size: 52px 98px;
+  }
+}
+
+.sprite-mobile-velcom {
+  background-position: -1px -1px;
+  width: 43px;
+  height: 32px;
+}
+
+.sprite-mobile-mts {
+  background-position: -1px -33px;
+  width: 32px;
+  height: 32px;
+}
+
+.sprite-mobile-life {
+  background-position: -1px -65px;
+  width: 52px;
+  height: 32px;
+}

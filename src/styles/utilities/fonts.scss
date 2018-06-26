@@ -1,0 +1,111 @@
+// Define fonts used by Google Webfonts
+//@import './Recoleta_Sans_St.ttf';
+@import url('https://fonts.googleapis.com/css?family=Khand:400,500,600,700%7CHandlee:400%7CRoboto:300,400,700&subset=latin,latin,latin');
+// @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/fonts/fontawesome-webfont.woff2?v=4.5.0');
+// @import url('public/fonts/khand/Khand-Bold.woff');
+// @import '../fonts/-41om1scqz7QbwGBKAfl3nYhjbSpvc47ee6xR_80Hnw.woff2';
+// @import '../fonts/B2SY-qgo6PKl6deUhRJBKaCWcynf_cDxXwCLxiixG1c.woff2';
+// @import '../fonts/d-6IYplOFocCacKzxwXSOJBw1xU1rKptJj_0jans920.woff2';
+// @import '../fonts/h5_U1wxbH_4TxOn23I6bKnYhjbSpvc47ee6xR_80Hnw.woff2';
+// @import '../fonts/Hgo13k-tfSpn0qi1SFdUfZBw1xU1rKptJj_0jans920.woff2';
+// @import '../fonts/juOaTHBX9N7mCQYS68pw6QLUuEpTyoUstqEm5AMlJo4.woff2';
+// @import '../fonts/oMMgfZMQthOryQo9n22dcuvvDin1pK8aKteLpeZ5c0A.woff2';
+// @import '../fonts/vr6ZNJpXN-WXcTknMA_7THYhjbSpvc47ee6xR_80Hnw.woff2';
+// @import url('public/fonts/-41om1scqz7QbwGBKAfl3nYhjbSpvc47ee6xR_80Hnw.woff2');
+// @import url('public/fonts/B2SY-qgo6PKl6deUhRJBKaCWcynf_cDxXwCLxiixG1c.woff2');
+// @import url('public/fonts/d-6IYplOFocCacKzxwXSOJBw1xU1rKptJj_0jans920.woff2');
+// @import url('public/fonts/h5_U1wxbH_4TxOn23I6bKnYhjbSpvc47ee6xR_80Hnw.woff2');
+// @import url('public/fonts/Hgo13k-tfSpn0qi1SFdUfZBw1xU1rKptJj_0jans920.woff2');
+// @import url('public/fonts/juOaTHBX9N7mCQYS68pw6QLUuEpTyoUstqEm5AMlJo4.woff2');
+// @import url('public/fonts/oMMgfZMQthOryQo9n22dcuvvDin1pK8aKteLpeZ5c0A.woff2');
+// @import url('public/fonts/vr6ZNJpXN-WXcTknMA_7THYhjbSpvc47ee6xR_80Hnw.woff2');
+
+$fonts: (
+  'primary': (
+    'family-name': 'Khand',
+    'generic-family': 'sans-serif',
+    'variants': (
+      'regular': 400,
+      'medium': 500,
+      'semibold': 600,
+      'bold': 700
+    )
+  ),
+  'secondary': (
+    'family-name': 'Roboto',
+    'generic-family': 'sans-serif',
+    'variants': (
+      'light': 300,
+      'regular': 400,
+      'bold': 700,
+    )
+  ),
+  'alternative': (
+    'family-name': 'Handlee',
+    'generic-family': 'sans-serif',
+    'variants': (
+      'regular': 400
+    )
+  )
+) !default;
+
+// Font mixin
+// Generate correct font-family, font-weight from given arguments
+// Loop through the $fonts list to define the correct values
+//
+// @example scss - Usage
+//   .element {
+//     @include font(primary, bold);
+//   }
+//
+// @example css - Output
+//   .element {
+//     font-family: 'Khand', sans-serif;
+//     font-weight: 700;
+//   }
+//
+// @access public
+// @param {String} $name          Font name, default primary
+// @param {Mixed}  $font-weight   Font weight, can be a number or string (regular, bold, etc.)
+@mixin font($name: 'primary', $font-weight: 400) {
+  $font-set: map-get($fonts, $name);
+  $wf-name: false;
+
+  @if $font-set {
+    $font-name: map-get($font-set, 'family-name');
+    $font-family: $font-name, map-get($font-set, 'generic-family');
+    $wf-name: str-replace(to-lower-case($font-name), ' ', '-');
+
+    $weight-type: type-of($font-weight);
+
+    @if $weight-type == 'string' {
+      $variants: map-get($font-set, 'variants');
+      $font-weight: map-get($variants, $font-weight);
+    } @else if $weight-type != 'number' {
+      @error "Invalid value type for weight #{$font-weight} is not supported";
+    }
+
+    font-family: $font-family;
+    font-weight: $font-weight;
+
+    // Prevent font flickering
+    // See http://help.typekit.com/customer/portal/articles/6852
+    // https://github.com/typekit/fvd
+    // https://github.com/typekit/webfontloader
+    // @if $wf-name != false {
+    //   /* visibility: hidden; */
+
+    //   .wf-inactive &,
+    //   .wf-#{$wf-name}-n#{str-slice("" + $font-weight, 0, 1)}-active &,
+    //   .wf-#{$wf-name}-n#{str-slice("" + $font-weight, 0, 1)}-inactive & {
+    //     visibility: visible;
+    //   }
+    // }
+  } @else {
+    @error "Font #{$name} was not found";
+  }
+}
+
+@function unicode_transform($value){
+  @return unquote("\"") + $value + unquote("\"");
+}

@@ -1,0 +1,26 @@
+// Generate breakpoints name to be used in Javascript
+body:before {
+  opacity: 0;
+  position: absolute;
+  z-index: -9999;
+
+  @include breakpoint($tiny-only) {
+    content: 'tiny';
+  }
+
+  @include breakpoint($small-only) {
+    content: 'small';
+  }
+
+  @include breakpoint($medium-only) {
+    content: 'medium';
+  }
+
+  @include breakpoint($large-only) {
+    content: 'large';
+  }
+
+  @include breakpoint($xlarge-only) {
+    content: 'xlarge';
+  }
+}

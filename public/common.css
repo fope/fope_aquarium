@@ -1,0 +1,20 @@
+/** 
+ * Common style
+ */
+html, body {
+  height: 100%;
+  margin: 0;
+  min-width: 320px;
+  padding: 0; }
+
+html {
+  outline: none; }
+
+html * {
+  box-sizing: border-box; }
+
+body {
+  overflow-x: hidden; }
+
+body.noscroll {
+  overflow: hidden; }
